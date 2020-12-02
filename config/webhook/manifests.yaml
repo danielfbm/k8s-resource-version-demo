@@ -24,6 +24,24 @@ webhooks:
     - UPDATE
     resources:
     - frobbers
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-frobs-danielfbm-github-io-v1beta1-frobber
+  failurePolicy: Fail
+  name: mfrobberv1beta1.kb.io
+  rules:
+  - apiGroups:
+    - frobs.danielfbm.github.io
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - frobbers
 
 ---
 apiVersion: admissionregistration.k8s.io/v1beta1
@@ -45,6 +63,24 @@ webhooks:
     - frobs.danielfbm.github.io
     apiVersions:
     - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - frobbers
+- clientConfig:
+    caBundle: Cg==
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-frobs-danielfbm-github-io-v1beta1-frobber
+  failurePolicy: Fail
+  name: vfrobberv1beta1.kb.io
+  rules:
+  - apiGroups:
+    - frobs.danielfbm.github.io
+    apiVersions:
+    - v1beta1
     operations:
     - CREATE
     - UPDATE

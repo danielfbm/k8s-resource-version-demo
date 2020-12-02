@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v1beta1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -33,7 +33,6 @@ type FrobberStatus struct {
 }
 
 // +kubebuilder:object:root=true
-// +kubebuilder:storageversion
 
 // Frobber is the Schema for the frobbers API
 type Frobber struct {
@@ -50,8 +49,8 @@ func (r *Frobber) Validate() (err error) {
 	defer func() {
 		err = errs.ToAggregate()
 	}()
-	if r.Spec.Height <= 0 {
-		errs = append(errs, field.Invalid(field.NewPath("spec", "height"), r.Spec.Height, `should have height greater than zero`))
+	if r.Spec.Height <= 1 {
+		errs = append(errs, field.Invalid(field.NewPath("spec", "height"), r.Spec.Height, `should have height greater than one`))
 	}
 	return
 }

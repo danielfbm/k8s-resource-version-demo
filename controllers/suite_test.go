@@ -31,6 +31,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	frobsv1alpha1 "danielfbm.github.io/k8s-resource-version/api/v1alpha1"
+	frobsv1beta1 "danielfbm.github.io/k8s-resource-version/api/v1beta1"
 	// +kubebuilder:scaffold:imports
 )
 
@@ -63,6 +64,9 @@ var _ = BeforeSuite(func(done Done) {
 	Expect(cfg).ToNot(BeNil())
 
 	err = frobsv1alpha1.AddToScheme(scheme.Scheme)
+	Expect(err).NotTo(HaveOccurred())
+
+	err = frobsv1beta1.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
 
 	// +kubebuilder:scaffold:scheme

@@ -27,6 +27,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	frobsv1alpha1 "danielfbm.github.io/k8s-resource-version/api/v1alpha1"
+	frobsv1beta1 "danielfbm.github.io/k8s-resource-version/api/v1beta1"
 	"danielfbm.github.io/k8s-resource-version/controllers"
 	// +kubebuilder:scaffold:imports
 )
@@ -40,6 +41,7 @@ func init() {
 	_ = clientgoscheme.AddToScheme(scheme)
 
 	_ = frobsv1alpha1.AddToScheme(scheme)
+	_ = frobsv1beta1.AddToScheme(scheme)
 	// +kubebuilder:scaffold:scheme
 }
 
@@ -75,6 +77,10 @@ func main() {
 		os.Exit(1)
 	}
 	if err = (&frobsv1alpha1.Frobber{}).SetupWebhookWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create webhook", "webhook", "Frobber")
+		os.Exit(1)
+	}
+	if err = (&frobsv1beta1.Frobber{}).SetupWebhookWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create webhook", "webhook", "Frobber")
 		os.Exit(1)
 	}

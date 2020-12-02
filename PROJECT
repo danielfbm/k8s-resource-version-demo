@@ -4,4 +4,7 @@ resources:
 - group: frobs
   kind: Frobber
   version: v1alpha1
+- group: frobs
+  kind: Frobber
+  version: v1beta1
 version: "2"

@@ -1,0 +1,9 @@
+apiVersion: frobs.danielfbm.github.io/v1beta1
+kind: Frobber
+metadata:
+  name: frobber-sample1
+spec:
+  # Add fields here
+  # foo: bar
+  height: 2
+  param: ""
