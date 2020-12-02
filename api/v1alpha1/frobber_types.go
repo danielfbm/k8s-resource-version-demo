@@ -18,6 +18,7 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/validation/field"
 )
 
 // FrobberSpec defines the desired state of Frobber
@@ -40,6 +41,18 @@ type Frobber struct {
 
 	Spec   FrobberSpec   `json:"spec,omitempty"`
 	Status FrobberStatus `json:"status,omitempty"`
+}
+
+// Validate basic Frobber validation
+func (r *Frobber) Validate() (err error) {
+	var errs field.ErrorList
+	defer func() {
+		err = errs.ToAggregate()
+	}()
+	if r.Spec.Height <= 0 {
+		errs = append(errs, field.Invalid(field.NewPath("spec", "height"), r.Spec.Height, `should have height greater than zero`))
+	}
+	return
 }
 
 // +kubebuilder:object:root=true

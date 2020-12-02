@@ -41,12 +41,26 @@ This will give support to running with [`kind`](https://sigs.k8s.io/kind)
 [...]
 ```
 
+4. Force deployment
+
+If as-is the tag will always be the same and will not trigger any deployment for new versions. To `*force*` a redeploy you can execute `kubectl -n k8s-resource-version-demo-system delete pods --all` **AFTER** the deploy commands below
+
+Add the `kill` command to your `Makefile`
+
+```Makefile
+kill:
+	kubectl -n k8s-resource-version-demo-system delete pods --all
+```
+
+> This can be avoided if a `IMG` variable with a full repository:tag is provided. i.e `make docker-build IMG=danielfbm/controller:v1`
+
 
 ## Docker for Mac 
 
 ```bash
 make docker-build
 make deploy
+make kill
 ```
 
 ## Kind
@@ -56,6 +70,7 @@ Set `KIND` variable with your `kind` cluster name
 ```bash
 make docker-build
 make KIND=kind deploy
+make kill
 ```
 
 

@@ -1,8 +1,7 @@
 apiVersion: frobs.danielfbm.github.io/v1alpha1
 kind: Frobber
 metadata:
-  name: frobber-sample
+  name: frobber-invalid
 spec:
-  # Add fields here
-  height: 3
-  param: ""
+  height: 0
+  param: "inches"

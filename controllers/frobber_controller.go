@@ -38,10 +38,17 @@ type FrobberReconciler struct {
 // +kubebuilder:rbac:groups=frobs.danielfbm.github.io,resources=frobbers/status,verbs=get;update;patch
 
 func (r *FrobberReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
-	_ = context.Background()
-	_ = r.Log.WithValues("frobber", req.NamespacedName)
+	ctx := context.Background()
+	log := r.Log.WithValues("frobber", req.NamespacedName)
 
+	frobber := &frobsv1alpha1.Frobber{}
+	err := r.Client.Get(ctx, req.NamespacedName, frobber)
+	if err != nil {
+		err = client.IgnoreNotFound(err)
+		return ctrl.Result{}, err
+	}
 	// your logic here
+	log.Info("Print", "height", frobber.Spec.Height, "param", frobber.Spec.Param)
 
 	return ctrl.Result{}, nil
 }

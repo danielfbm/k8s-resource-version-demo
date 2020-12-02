@@ -43,6 +43,9 @@ ifneq (,${KIND})
 endif 
 	kustomize build config/default | kubectl apply -f -
 
+kill:
+	kubectl -n k8s-resource-version-demo-system delete pods --all
+
 ko: manifests
 	cd config/manager && kustomize edit set image controller=${PKG}
 	kustomize build config/default | sed -e 's/:latest//' |  ko apply -L -f -
