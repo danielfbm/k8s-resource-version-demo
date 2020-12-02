@@ -1,0 +1,7 @@
+domain: danielfbm.github.io
+repo: danielfbm.github.io/k8s-resource-version
+resources:
+- group: frobs
+  kind: Frobber
+  version: v1alpha1
+version: "2"

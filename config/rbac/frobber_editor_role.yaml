@@ -1,0 +1,24 @@
+# permissions for end users to edit frobbers.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: frobber-editor-role
+rules:
+- apiGroups:
+  - frobs.danielfbm.github.io
+  resources:
+  - frobbers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - frobs.danielfbm.github.io
+  resources:
+  - frobbers/status
+  verbs:
+  - get
